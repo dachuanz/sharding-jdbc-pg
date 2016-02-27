@@ -20,7 +20,7 @@ import com.dangdang.ddframe.rdb.sharding.parser.visitor.ParseContext;
 import com.dangdang.ddframe.rdb.sharding.parser.visitor.SQLVisitor;
 /**
  * 
- * @author zdc52
+ * @author 张大川
  *
  */
 public class AbstractPostgreSQLVisitor extends PGOutputVisitor implements SQLVisitor {
