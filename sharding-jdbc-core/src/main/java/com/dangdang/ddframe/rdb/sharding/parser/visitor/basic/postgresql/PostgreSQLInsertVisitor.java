@@ -6,8 +6,8 @@ import com.google.common.base.Optional;
 
 /**
  * 
- * @author zhangdachuan
- *
+ * @author zhangdachuan 
+ *插入数据 处理
  */
 
 public class PostgreSQLInsertVisitor extends AbstractPostgreSQLVisitor {
