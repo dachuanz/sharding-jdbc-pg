@@ -28,7 +28,6 @@ import com.dangdang.ddframe.rdb.sharding.parser.result.merger.GroupByColumn;
 import com.dangdang.ddframe.rdb.sharding.parser.result.merger.OrderByColumn;
 import com.dangdang.ddframe.rdb.sharding.parser.result.merger.OrderByColumn.OrderByType;
 import com.google.common.base.Preconditions;
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -63,10 +62,12 @@ public final class ResultSetUtil {
      * @throws SQLException
      */
     public static Object getValue(final OrderByColumn orderByColumn, final ResultSet resultSet) throws SQLException {
-        Object result;
+        Object result = null;
         if (orderByColumn.getIndex().isPresent()) {
             result = resultSet.getObject(orderByColumn.getIndex().get());
-        } else {
+        } else if (orderByColumn.getAlias().isPresent()) {
+            result = getValue(orderByColumn.getAlias().get(), resultSet);
+        } else if (orderByColumn.getName().isPresent()) {
             result = getValue(orderByColumn.getName().get(), resultSet);
         }
         Preconditions.checkNotNull(result);
@@ -120,6 +121,8 @@ public final class ResultSetUtil {
                 } else {
                     return new BigDecimal(number.toString());
                 }
+            case "java.lang.Object":
+                return value;
             default:
                 throw new ShardingJdbcException("Unsupported data type:%s", convertType);
         }
