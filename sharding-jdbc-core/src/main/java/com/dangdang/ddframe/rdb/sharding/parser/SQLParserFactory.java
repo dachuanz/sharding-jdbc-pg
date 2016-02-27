@@ -32,7 +32,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class SQLParserFactory {
     
-   
+     /**
+     * 创建解析器引擎对象.
+     * 
+     * @param databaseType 数据库类型
+     * @param sql SQL语句
+     * @param parameters SQL中参数的值
+     * @param shardingColumns 分片列名称集合
+     * @return 解析器引擎对象
+     * @throws SQLParserException SQL解析异常
+     */
     public static SQLParseEngine create(final DatabaseType databaseType, final String sql, final List<Object> parameters, final Collection<String> shardingColumns) throws SQLParserException {
         log.debug("Logic SQL: {}", sql);
         SQLStatement sqlStatement = getSQLStatementParser(databaseType, sql).parseStatement();
@@ -54,8 +63,7 @@ public final class SQLParserFactory {
                 return new DB2StatementParser(sql);
             case PostgreSQL:
             	 return new PGSQLStatementParser(sql); // 添加 postgresql支持
-          
-            default: 
+                      default: 
                 throw new UnsupportedOperationException(String.format("Cannot support database type [%s]", databaseType));
         }
     }
