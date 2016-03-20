@@ -107,6 +107,8 @@ public final class ResultSetUtil {
     private static Object convertNumberValue(final Object value, final Class<?> convertType) {
         Number number = (Number) value;
         switch (convertType.getName()) {
+            case "short":
+                return number.shortValue();
             case "int":
                 return number.intValue();
             case "long":
@@ -123,6 +125,8 @@ public final class ResultSetUtil {
                 }
             case "java.lang.Object":
                 return value;
+            case "java.lang.String":
+                return value.toString();
             default:
                 throw new ShardingJdbcException("Unsupported data type:%s", convertType);
         }
