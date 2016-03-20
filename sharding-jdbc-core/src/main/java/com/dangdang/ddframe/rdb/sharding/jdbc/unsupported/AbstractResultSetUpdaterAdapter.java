@@ -45,7 +45,7 @@ public abstract class AbstractResultSetUpdaterAdapter extends WrapperAdapter imp
     
     @Override
     public final void updateNull(final int columnIndex) throws SQLException {
-        throw new SQLFeatureNotSupportedException("updateXXX");
+        throw new SQLFeatureNotSupportedException("updateNull");
     }
     
     @Override
